@@ -17,7 +17,6 @@ import kotlinx.coroutines.Dispatchers
 
 class GeoApiImpl(private val client: HttpClient): GeoApi {
     override suspend fun fetchData(types: List<String>): Result<List<GeoItemDto>> {
-        val types = listOf<String>("1012")
         return try {
             /* 1️⃣  Build WHERE clause only when we have at least one type */
             val where = if (types.isEmpty()) {

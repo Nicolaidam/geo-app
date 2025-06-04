@@ -6,7 +6,6 @@ class CachedGeoApi(private val wrapped: GeoApi) : GeoApi {
 
     private val ttlMillis = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
 
-
     override suspend fun fetchData(types: List<String>): Result<List<GeoItemDto>> {
         val now = System.currentTimeMillis()
         // update so it uses TYPES instead of TYPE
