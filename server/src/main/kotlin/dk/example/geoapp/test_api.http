@@ -1,0 +1,22 @@
+### Fetch toilets only
+POST http://localhost:8089/list
+Accept: application/json
+Content-Type: application/json
+
+{"types":["1012"]}
+
+
+### Fetch toilets + shelters
+POST http://localhost:8089/list
+Accept: application/json
+Content-Type: application/json
+
+{"types":["1012","3012"]}
+
+
+### Fetch *all* facility types
+POST http://localhost:8089/list
+Accept: application/json
+Content-Type: application/json
+
+{"types":[]}
