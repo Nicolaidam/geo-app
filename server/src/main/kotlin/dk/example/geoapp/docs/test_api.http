@@ -1,0 +1,34 @@
+### Fetch toilets only
+@baseUrl = http://localhost:8080
+@geoItems = /items
+@geoTypes = /types
+
+
+POST {{baseUrl}}{{geoItems}}
+Accept: application/json
+Content-Type: application/json
+
+{"types":["1012"]}
+
+
+### Fetch toilets + shelters
+POST {{baseUrl}}{{geoItems}}
+Accept: application/json
+Content-Type: application/json
+
+{"types":["1012","3012"]}
+
+
+### Fetch *all* facility
+POST {{baseUrl}}{{geoItems}}
+Accept: application/json
+Content-Type: application/json
+
+{"types":[]}
+
+### Fetch types with items of minimum 500
+POST {{baseUrl}}{{geoTypes}}
+Accept: application/json
+Content-Type: application/json
+
+{"minimumSize":500}

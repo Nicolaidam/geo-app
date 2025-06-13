@@ -3,4 +3,4 @@ ktor:
     modules:
         - dk.example.geoapp.ApplicationKt.module
   deployment:
-    port: 8089
+    port: 8080

@@ -10,14 +10,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
-import dk.example.geoapp.api.GeoApiClient
+import dk.example.geoapp.viewmodels.HomeUIState
+import dk.example.geoapp.viewmodels.HomeViewModel
+import dk.example.geoapp.domain.geoapiclient.GeoApiClient
 
 @Composable
 fun App(
     api: GeoApiClient,
-    viewModel: HomeViewModel = remember { HomeViewModel(
-        geoApiClient = api
-    ) }
+    viewModel: HomeViewModel = remember {
+        HomeViewModel(
+            geoApiClient = api
+        )
+    }
 ) {
     MaterialTheme(
         colorScheme = lightColorScheme(
