@@ -61,7 +61,7 @@ fun Application.module() {
     )
 
     // Start daily refresh job
-    startDailyRefreshJob(refreshGeoItems)
+    startDailyRefreshJob { refreshGeoItems() }
 
     // Kick-off an *immediate* geo items refresh at start-up
     launch { refreshGeoItems() }
