@@ -2,32 +2,32 @@
 FROM gradle:8.14.0-jdk21-corretto AS builder
 WORKDIR /home/gradle/project
 
-# Copy Gradle files from the correct locations.
+# Copy Gradle wrapper and build configuration
 COPY gradlew gradlew.bat ./
-COPY gradle/wrapper/ gradle/wrapper/
-COPY gradle/local.versions.toml gradle/
+COPY gradle gradle
 COPY settings.gradle.kts ./
 COPY build.gradle.kts ./
+COPY shared/build.gradle.kts shared/
+COPY server/build.gradle.kts server/
 
-# Make gradlew executable.
+# Make gradlew executable
 RUN chmod +x gradlew
 
-# Download dependencies (this layer will be cached unless build files change).
-RUN ./gradlew --no-daemon dependencies
+# Download project dependencies
+RUN ./gradlew --no-daemon :server:dependencies
 
-# Copy the rest of the source code.
-COPY . .
+# Copy the remaining source code
+COPY shared/src shared/src
+COPY server/src server/src
 
-# Build the api subproject.
-# Exclude tests to speed up the build.
-RUN ./gradlew --no-daemon :api:clean :api:buildFatJar -x test
+# Build the server distribution
+RUN ./gradlew --no-daemon :server:installDist
 
-# Stage 2: Package the application into a runtime image using temurin JDK 21.
-FROM eclipse-temurin:21.0.7_6-jdk
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copy the generated jar from the builder stage.
-COPY --from=builder /home/gradle/project/apps/api/build/libs/api-all.jar app.jar
+# Copy the built distribution from the builder stage
+COPY --from=builder /home/gradle/project/server/build/install/server/ /app
 
-# Run the application.
-CMD ["java", "-jar", "app.jar"]
+# Start the application
+CMD ["./bin/server"]
