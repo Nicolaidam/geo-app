@@ -19,7 +19,7 @@ Content-Type: application/json
 {"types":["1012","3012"]}
 
 
-### Fetch *all* facility
+### Fetch *all* facilities
 POST {{baseUrl}}{{geoItems}}
 Accept: application/json
 Content-Type: application/json
