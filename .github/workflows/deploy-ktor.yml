@@ -41,8 +41,8 @@ jobs:
             ${{ secrets.DEBIAN_USER }}@${{ secrets.DEBIAN_IP }} << EOF
             set -e
             cd ~/geo-app
-            echo "DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/geo-app-server" > .env
-            echo "VERSION=${FULL_VERSION}" >> .env
+            sudo echo "DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/geo-app-server" > .env
+            sudo echo "VERSION=${FULL_VERSION}" >> .env
             docker image prune -af
             docker compose pull
             docker compose up -d --remove-orphans
